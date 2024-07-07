@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/FastHashtableDemo/.vs
+/FastHashtableDemo/FastHashtableDemo/bin/Debug/net8.0
+/FastHashtableDemo/FastHashtableDemo/obj
+/FastHashtableDemo/FastHashtableDemo/obj/Debug/net8.0/ref/FastHashtableDemo.dll
+/OuterClassDemo/.vs
+/OuterClassDemo/OuterClassDemo/bin/Debug/net8.0
+/OuterClassDemo/OuterClassDemo/obj
