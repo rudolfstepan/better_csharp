@@ -34,3 +34,34 @@ public class OuterClass
         }
     }
 }
+```
+Program
+Die Program-Klasse erstellt eine Instanz der InnerClass und ruft deren Test-Methode auf, um zu demonstrieren, wie auf die Eigenschaft OuterClassName der äußeren Klasse zugegriffen wird.
+
+```csharp
+public class Program
+{
+    public static void Main()
+    {
+        OuterClass.InnerClass inner = new OuterClass.InnerClass();
+        inner.Test();
+    }
+}
+```
+
+Verwendung
+Klone das Repository:
+
+bash
+Code kopieren
+git clone https://github.com/dein-benutzername/dein-repository.git
+Öffne das Projekt in deiner bevorzugten IDE (z.B. Visual Studio).
+
+Baue und führe das Projekt aus. Die Konsole sollte folgendes ausgeben:
+
+Code kopieren
+OuterClass
+Test
+
+Lizenz
+Dieses Projekt ist unter der MIT-Lizenz lizenziert – siehe die LICENSE-Datei für Details.
