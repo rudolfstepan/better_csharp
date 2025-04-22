@@ -10,3 +10,10 @@
 /OuterClassDemo/.vs
 /OuterClassDemo/OuterClassDemo/bin/Debug/net8.0
 /OuterClassDemo/OuterClassDemo/obj
+/CodeGeneratorTestApp/obj
+/EventHelper/obj
+/ThreadSafeHelperGenerator/obj
+/UnitTestPlayground/ThreadSafeUnitTest/.vs
+/UnitTestPlayground/ThreadSafeUnitTest/packages
+/UnitTestPlayground/ThreadSafeUnitTest/ThreadSafeUnitTest/bin/Debug
+/UnitTestPlayground/ThreadSafeUnitTest/ThreadSafeUnitTest/obj
