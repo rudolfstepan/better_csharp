@@ -15,3 +15,15 @@
 /EventHelper/EventHelper/obj
 /EventHelper/EventHelper.Tests/bin/Debug/net8.0
 /EventHelper/EventHelper.Tests/obj
+/CodeGeneratorTestApp/obj/Debug/net8.0
+/CodeGeneratorTestApp/obj/Release/net8.0
+/CodeGeneratorTestApp/obj
+/EventHelper/.vs/ProjectEvaluation
+/EventHelper/EventHelper.Tests/bin/Release/net8.0
+/EventHelper/obj
+/EventTestMauiApp/obj
+/ThreadSafeHelperGenerator/obj
+/CodeGeneratorTestApp/bin/Debug/net8.0
+/EventTestMauiApp/bin/Debug/net9.0-windows10.0.19041.0/win10-x64
+/ThreadSafeHelperGenerator/bin/Debug/netstandard2.0
+/EventTestMauiApp/bin/Debug
