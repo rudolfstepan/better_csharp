@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +105,18 @@ namespace EventHelper
                 }
 
                 CleanupDeadHandlers();
+            }
+        }
+
+        public bool IsEmpty
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    CleanupDeadHandlers();
+                    return _handlers.Count == 0;
+                }
             }
         }
     }

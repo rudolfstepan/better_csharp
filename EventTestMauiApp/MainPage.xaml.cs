@@ -1,4 +1,5 @@
 ﻿using EventHelper;
+using EventHelper.Adapters;
 
 namespace EventTestMauiApp
 {
@@ -12,12 +13,12 @@ namespace EventTestMauiApp
 
             // although the event handler is registered multiple times,
             // it will only be called once when the event is raised!
-            CounterBtn.OnClick += OnClick_Handler;
-            CounterBtn.OnClick += OnClick_Handler;
-            CounterBtn.OnClick += OnClick_Handler;
+            CounterBtn.Clicked += OnClick_Handler;
+            CounterBtn.Clicked += OnClick_Handler;
+            CounterBtn.Clicked += OnClick_Handler;
         }
 
-        private void OnClick_Handler(string arg)
+        private void OnClick_Handler(object sender, EventArgs arg)
         {
             count++;
             if (count == 1)
@@ -31,13 +32,21 @@ namespace EventTestMauiApp
     // Custom button class that uses WeakActionEvent
     public class CustomButton : Button
     {
-        public WeakActionEvent<string> OnClick = new WeakActionEvent<string>();
+        private readonly BulletproofEventAdapter<Button> _adapter;
 
         public CustomButton()
         {
-            // Subscribe to the Clicked event of the Button
-            // This is where we raise our custom event
-            Clicked += (s, e) => OnClick?.Invoke("Button clicked");
+            _adapter = new BulletproofEventAdapter<Button>(
+                this,
+                (ctrl, handler) => ctrl.Clicked += handler,
+                (ctrl, handler) => ctrl.Clicked -= handler
+            );
+        }
+
+        public new event EventHandler? Clicked
+        {
+            add => _adapter.Clicked += value;
+            remove => _adapter.Clicked -= value;
         }
     }
 }
