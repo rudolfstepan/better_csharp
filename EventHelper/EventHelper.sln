@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32617.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHelper", "EventHelper\EventHelper.csproj", "{12345678-90AB-CDEF-1234-567890ABCDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHelper-Tests", "EventHelper.Tests\EventHelper-Tests.csproj", "{B56A31CD-7D7C-8E50-DFAB-79E1AEB7D3C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12345678-90AB-CDEF-1234-567890ABCDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-90AB-CDEF-1234-567890ABCDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-90AB-CDEF-1234-567890ABCDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-90AB-CDEF-1234-567890ABCDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56A31CD-7D7C-8E50-DFAB-79E1AEB7D3C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56A31CD-7D7C-8E50-DFAB-79E1AEB7D3C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56A31CD-7D7C-8E50-DFAB-79E1AEB7D3C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56A31CD-7D7C-8E50-DFAB-79E1AEB7D3C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A79C5143-32F2-4961-A744-2FAB3C935F3D}
+	EndGlobalSection
+EndGlobal
