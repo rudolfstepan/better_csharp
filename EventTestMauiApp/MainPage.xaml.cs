@@ -30,6 +30,7 @@ namespace EventTestMauiApp
     }
 
     // Custom button class that uses WeakActionEvent
+    // to prevent memory leaks and multiple event handler calls.
     public class CustomButton : Button
     {
         private readonly BulletproofEventAdapter<Button> _adapter;
