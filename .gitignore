@@ -10,3 +10,8 @@
 /OuterClassDemo/.vs
 /OuterClassDemo/OuterClassDemo/bin/Debug/net8.0
 /OuterClassDemo/OuterClassDemo/obj
+/EventHelper/.vs/EventHelper
+/EventHelper/EventHelper/bin/Debug
+/EventHelper/EventHelper/obj
+/EventHelper/EventHelper.Tests/bin/Debug/net8.0
+/EventHelper/EventHelper.Tests/obj
