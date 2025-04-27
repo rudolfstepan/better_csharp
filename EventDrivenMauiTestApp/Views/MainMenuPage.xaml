@@ -1,6 +1,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EventDrivenMauiTestApp.Views.MainMenuPage">
+             x:Class="EventDrivenMauiTestApp.Views.MainMenuPage"
+             NavigationPage.HasBackButton="True"
+             Title="Main Menu">
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
         <Label Text="Main Menu" FontSize="32" />
         <Button Text="Open Settings" Clicked="OnSettingsClicked"/>

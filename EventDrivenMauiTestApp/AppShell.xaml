@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       x:Class="EventDrivenMauiTestApp.AppShell"
-       xmlns:local="clr-namespace:EventDrivenMauiTestApp.Views">
-    <ShellContent Title="Splash" ContentTemplate="{DataTemplate local:SplashPage}" Route="SplashPage" />
-    <ShellContent Title="Login" ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage" />
-    <ShellContent Title="MainMenu" ContentTemplate="{DataTemplate local:MainMenuPage}" Route="MainMenuPage" />
-    <ShellContent Title="Settings" ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
-    <ShellContent Title="Profile" ContentTemplate="{DataTemplate local:ProfilePage}" Route="ProfilePage" />
+<Shell 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EventDrivenMauiTestApp.AppShell"
+    xmlns:local="clr-namespace:EventDrivenMauiTestApp.Views">
+
+    <!-- SplashPage als Startpunkt -->
+    <!-- SplashPage als "Home" -->
+    <ShellContent 
+        Title="Splash" 
+        ContentTemplate="{DataTemplate local:SplashPage}" 
+        Route="SplashPage" />
+
+    <!-- Keine weiteren ShellContent direkt hier! -->
+
 </Shell>

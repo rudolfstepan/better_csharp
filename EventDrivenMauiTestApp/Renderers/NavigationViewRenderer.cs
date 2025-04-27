@@ -46,7 +46,16 @@ namespace EventDrivenMauiTestApp.Renderers
                     Console.WriteLine($"[NavigationHelper] Navigating to {route}...");
                     MainThread.BeginInvokeOnMainThread(async () =>
                     {
-                        await Shell.Current.GoToAsync($"///{route}");
+
+                        // Hier wird die Navigation durchgeführt
+                        if(route == "SplashPage")
+                        {
+                            await Shell.Current.GoToAsync($"///{route}");
+                        }
+                        else
+                        {
+                            await Shell.Current.GoToAsync($"{route}");
+                        }
                     });
 
                 }
