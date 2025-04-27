@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHelper-Tests", "EventH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "EventDrivenApps\ConsoleApp\ConsoleApp.csproj", "{6F7BA2D5-6741-4478-B5EA-A9166CECD1BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDrivenMauiTestApp", "EventDrivenMauiTestApp\EventDrivenMauiTestApp.csproj", "{D06D80BA-529C-4FB5-A2BD-386D1D13F800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,11 @@ Global
 		{6F7BA2D5-6741-4478-B5EA-A9166CECD1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F7BA2D5-6741-4478-B5EA-A9166CECD1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F7BA2D5-6741-4478-B5EA-A9166CECD1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06D80BA-529C-4FB5-A2BD-386D1D13F800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06D80BA-529C-4FB5-A2BD-386D1D13F800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06D80BA-529C-4FB5-A2BD-386D1D13F800}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D06D80BA-529C-4FB5-A2BD-386D1D13F800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06D80BA-529C-4FB5-A2BD-386D1D13F800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

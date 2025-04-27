@@ -1,0 +1,10 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventDrivenMauiTestApp.Views.MainMenuPage">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+        <Label Text="Main Menu" FontSize="32" />
+        <Button Text="Open Settings" Clicked="OnSettingsClicked"/>
+        <Button Text="View Profile" Clicked="OnProfileClicked"/>
+        <Button Text="Logout" Clicked="OnLogoutClicked"/>
+    </StackLayout>
+</ContentPage>
