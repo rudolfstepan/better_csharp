@@ -243,5 +243,39 @@ namespace EventHelper.Tests
             Assert.AreEqual(topicCount, triggeredCount);
         }
 
+        [TestMethod]
+        public async Task LightweightEventBusAsync_ManyTopicsManySubscribersTest()
+        {
+            var bus = new LightweightEventBusAsync();
+            const int topicCount = 500;
+            const int subscribersPerTopic = 100;
+            int totalTriggered = 0;
+
+            for (int topicId = 0; topicId < topicCount; topicId++)
+            {
+                int capturedTopicId = topicId;
+
+                for (int sub = 0; sub < subscribersPerTopic; sub++)
+                {
+                    bus.Subscribe<TopicMessage>(async envelope =>
+                    {
+                        Interlocked.Increment(ref totalTriggered);
+                        return EventAcknowledge.Handled;
+                    },
+                    filter: msg => msg.TopicId == capturedTopicId);
+                }
+            }
+
+            // Fire one message per topic
+            for (int topicId = 0; topicId < topicCount; topicId++)
+            {
+                await bus.PublishAsync(new TopicMessage(topicId));
+            }
+
+            int expected = topicCount * subscribersPerTopic;
+            Assert.AreEqual(expected, totalTriggered, $"Expected {expected} triggered, but got {totalTriggered}.");
+        }
+
+
     }
 }
