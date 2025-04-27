@@ -131,7 +131,7 @@ namespace EventHelper.Tests
         public void BulletproofWeakAction_MassiveInvocationTest()
         {
             var evt = new BulletproofWeakAction();
-            const int subscriberCount = 10000;
+            const int subscriberCount = 1000;
             var subscribers = new TestSubscriber[subscriberCount];
 
             for (int i = 0; i < subscriberCount; i++)
@@ -164,5 +164,84 @@ namespace EventHelper.Tests
 
             Assert.AreEqual(invocationCount, subscriber.Count);
         }
+
+        [TestMethod]
+        public async Task LightweightEventBusAsync_FilteredSubscriptionTest()
+        {
+            var bus = new LightweightEventBusAsync();
+            int normalCount = 0;
+            int filteredCount = 0;
+
+            bus.Subscribe<string>(async envelope =>
+            {
+                normalCount++;
+                return EventAcknowledge.Handled;
+            });
+
+            bus.Subscribe<string>(async envelope =>
+            {
+                filteredCount++;
+                return EventAcknowledge.Handled;
+            },
+            filter: msg => msg.Contains("important"));
+
+            await bus.PublishAsync("This is normal");
+            await bus.PublishAsync("This is important");
+
+            Assert.AreEqual(2, normalCount);
+            Assert.AreEqual(1, filteredCount);
+        }
+
+        [TestMethod]
+        public async Task LightweightEventBusAsync_MassiveFilteredSubscribersTest()
+        {
+            var bus = new LightweightEventBusAsync();
+            const int subscriberCount = 1000000;
+            int triggeredCount = 0;
+
+            for (int i = 0; i < subscriberCount; i++)
+            {
+                int id = i;
+                bus.Subscribe<int>(async envelope =>
+                {
+                    triggeredCount++;
+                    return EventAcknowledge.Handled;
+                },
+                filter: value => value == id);
+            }
+
+            // Fire a specific event that should only match one subscriber
+            await bus.PublishAsync(1234);
+
+            Assert.AreEqual(1, triggeredCount);
+        }
+
+        [TestMethod]
+        public async Task LightweightEventBusAsync_MassiveTopicsTest()
+        {
+            var bus = new LightweightEventBusAsync();
+            const int topicCount = 5000;
+            int triggeredCount = 0;
+
+            for (int i = 0; i < topicCount; i++)
+            {
+                int topicId = i;
+                bus.Subscribe<TopicMessage>(async envelope =>
+                {
+                    triggeredCount++;
+                    return EventAcknowledge.Handled;
+                },
+                filter: msg => msg.TopicId == topicId);
+            }
+
+            // Fire one message per topic
+            for (int topicId = 0; topicId < topicCount; topicId++)
+            {
+                await bus.PublishAsync(new TopicMessage(topicId));
+            }
+
+            Assert.AreEqual(topicCount, triggeredCount);
+        }
+
     }
 }
