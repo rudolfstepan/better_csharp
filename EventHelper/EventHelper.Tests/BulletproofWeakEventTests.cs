@@ -1,5 +1,5 @@
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 
 namespace EventHelper.Tests
@@ -31,7 +31,7 @@ namespace EventHelper.Tests
         public void BulletproofWeakAction_InvokeOnce()
         {
             var evt = new BulletproofWeakAction();
-            var subscriber = new TestSubscriber();                            
+            var subscriber = new TestSubscriber();
 
             evt += subscriber.OnAction;
             evt.Invoke();
@@ -125,6 +125,44 @@ namespace EventHelper.Tests
             evt.Invoke();
 
             Assert.AreEqual(1, subscriber.Count);
+        }
+
+        [TestMethod]
+        public void BulletproofWeakAction_MassiveInvocationTest()
+        {
+            var evt = new BulletproofWeakAction();
+            const int subscriberCount = 10000;
+            var subscribers = new TestSubscriber[subscriberCount];
+
+            for (int i = 0; i < subscriberCount; i++)
+            {
+                subscribers[i] = new TestSubscriber();
+                evt += subscribers[i].OnAction;
+            }
+
+            evt.Invoke();
+
+            for (int i = 0; i < subscriberCount; i++)
+            {
+                Assert.AreEqual(1, subscribers[i].Count, $"Subscriber {i} wurde nicht korrekt aufgerufen.");
+            }
+        }
+
+        [TestMethod]
+        public void BulletproofWeakAction_RapidMultipleInvocations()
+        {
+            var evt = new BulletproofWeakAction();
+            var subscriber = new TestSubscriber();
+            evt += subscriber.OnAction;
+
+            const int invocationCount = 10000;
+
+            for (int i = 0; i < invocationCount; i++)
+            {
+                evt.Invoke();
+            }
+
+            Assert.AreEqual(invocationCount, subscriber.Count);
         }
     }
 }
