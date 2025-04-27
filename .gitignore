@@ -34,3 +34,5 @@
 /EventDrivenApps/ConsoleApp/bin/Debug/net8.0
 /EventDrivenApps/ConsoleApp/obj/Debug/net8.0
 /EventDrivenApps/ConsoleApp/obj
+/EventDrivenMauiTestApp/obj
+/EventDrivenMauiTestApp/bin/Debug
