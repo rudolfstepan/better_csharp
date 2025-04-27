@@ -1,5 +1,7 @@
 ﻿// Ultimate Lightweight Event Bus System with Async Support, Topics, Filters, and Timestamps
 
+using EventHelper;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -110,6 +112,25 @@ namespace EventHelper
                     return EventAcknowledge.NotHandled;
                 }
             }
+        }
+    }
+
+    public static class EventBusExtensions
+    {
+        public static void SubscribeWithLogging<T>(
+            this LightweightEventBusAsync bus,
+            Func<EventEnvelope<T>, string>? messageBuilder = null)
+            where T : class
+        {
+            bus.Subscribe<T>(envelope =>
+            {
+                var message = messageBuilder != null
+                    ? messageBuilder(envelope)
+                    : $"[Event Received] {typeof(T).Name}";
+
+                Console.WriteLine(message);
+                return Task.FromResult(EventAcknowledge.Handled);
+            });
         }
     }
 
