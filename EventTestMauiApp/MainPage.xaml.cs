@@ -11,6 +11,8 @@ namespace EventTestMauiApp
         {
             InitializeComponent();
 
+            //BulletproofWeakAction.DebugLogging = true;
+
             // although the event handler is registered multiple times,
             // it will only be called once when the event is raised!
             CounterBtn.Clicked += OnClick_Handler;

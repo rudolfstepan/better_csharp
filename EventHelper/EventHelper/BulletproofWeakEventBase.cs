@@ -11,11 +11,28 @@ namespace EventHelper
         {
             public readonly WeakReference? TargetRef;
             public readonly MethodInfo Method;
+            private readonly Delegate? OpenDelegate;
 
             public WeakHandler(T handler)
             {
                 TargetRef = handler.Target != null ? new WeakReference(handler.Target) : null;
                 Method = handler.Method;
+
+                if (handler.Target == null)
+                {
+                    OpenDelegate = handler;
+                }
+                else
+                {
+                    try
+                    {
+                        OpenDelegate = Delegate.CreateDelegate(typeof(T), handler.Target, Method);
+                    }
+                    catch
+                    {
+                        OpenDelegate = null;
+                    }
+                }
             }
 
             public bool Matches(T handler)
@@ -25,9 +42,24 @@ namespace EventHelper
             }
 
             public bool IsDead => TargetRef != null && TargetRef.Target == null;
+
+            public void Invoke(params object?[] parameters)
+            {
+                if (IsDead) return;
+
+                try
+                {
+                    OpenDelegate?.DynamicInvoke(parameters);
+                }
+                catch (Exception ex)
+                {
+                    if (BulletproofWeakEventBase<T>.DebugLogging)
+                        Console.WriteLine($"[WeakEvent] Fehler beim Invoke: {ex.Message}");
+                }
+            }
         }
 
-        protected readonly List<WeakHandler> _handlers = new();
+        protected volatile List<WeakHandler> _handlers = new();
         protected readonly object _lock = new();
 
         public static bool DebugLogging { get; set; } = false;
@@ -54,7 +86,8 @@ namespace EventHelper
                     if (DebugLogging)
                         Console.WriteLine($"[WeakEvent] Registriert: {handler.Method.DeclaringType?.Name}.{handler.Method.Name}");
 
-                    _handlers.Add(new WeakHandler(handler));
+                    var newHandlers = new List<WeakHandler>(_handlers) { new WeakHandler(handler) };
+                    _handlers = newHandlers;
                 }
                 else
                 {
@@ -71,40 +104,26 @@ namespace EventHelper
                 if (DebugLogging)
                     Console.WriteLine($"[WeakEvent] Deregistriert: {handler.Method.DeclaringType?.Name}.{handler.Method.Name}");
 
-                _handlers.RemoveAll(h => h.Matches(handler));
+                var newHandlers = _handlers.Where(h => !h.Matches(handler)).ToList();
+                _handlers = newHandlers;
             }
         }
 
         protected void CleanupDeadHandlers()
         {
-            int removed = _handlers.RemoveAll(h => h.IsDead);
-
-            if (DebugLogging && removed > 0)
-                Console.WriteLine($"[WeakEvent] {removed} tote Handler entfernt.");
+            var newHandlers = _handlers.Where(h => !h.IsDead).ToList();
+            if (DebugLogging && newHandlers.Count != _handlers.Count)
+                Console.WriteLine($"[WeakEvent] {_handlers.Count - newHandlers.Count} tote Handler entfernt.");
+            _handlers = newHandlers;
         }
 
         protected void InvokeHandlers(params object?[] parameters)
         {
-            lock (_lock)
-            {
-                foreach (var handler in _handlers.ToList())
-                {
-                    try
-                    {
-                        if (!handler.IsDead)
-                        {
-                            var target = handler.TargetRef?.Target;
-                            handler.Method.Invoke(target, parameters);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        if (DebugLogging)
-                            Console.WriteLine($"[WeakEvent] Fehler beim Aufruf: {ex.Message}");
-                    }
-                }
+            List<WeakHandler> snapshot = _handlers;
 
-                CleanupDeadHandlers();
+            foreach (var handler in snapshot)
+            {
+                handler.Invoke(parameters);
             }
         }
 
@@ -112,11 +131,8 @@ namespace EventHelper
         {
             get
             {
-                lock (_lock)
-                {
-                    CleanupDeadHandlers();
-                    return _handlers.Count == 0;
-                }
+                CleanupDeadHandlers();
+                return _handlers.Count == 0;
             }
         }
     }
